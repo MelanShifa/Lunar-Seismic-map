@@ -1,0 +1,204 @@
+// import gsap from 'gsap'
+// import * as Three from "https://unpkg.com/three@0.126.1/build/three.module.js";
+// import vertexShader from './shaders/vertex.glsl'
+// import fragmentShader from './shaders/fragment.glsl'
+// import activities from './data.json'
+
+// import glowVertexShader from './shaders/glowVertex.glsl'
+// import glowFragmentShader from './shaders/glowFragment.glsl'
+
+// console.log(activities)
+
+// const canvasContainer = document.querySelector('#canvasContainer')
+// const scene = new Three.Scene()
+// const camera = new Three.PerspectiveCamera(
+//   75,
+//   canvasContainer.offsetWidth / canvasContainer.offsetHeight,
+//   0.1,
+//   1000
+// )
+
+// const renderer = new Three.WebGLRenderer({
+//   antialias: true,
+//   canvas: document.querySelector('canvas')
+// })
+// renderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight)
+// renderer.setPixelRatio(window.devicePixelRatio)
+
+// //Creating a sphere
+// const sphere = new Three.Mesh(new Three.SphereGeometry(5, 50, 50),
+// new Three.ShaderMaterial({
+//   vertexShader,
+//   fragmentShader,
+//   uniforms: {
+//     globeTexture: {
+//       value: new Three.TextureLoader().load('./images/globe.jpg')
+//     }
+//   }
+
+// }))
+
+
+// //Glow reflection
+
+// const atmosphere = new Three.Mesh(
+//   new Three.SphereGeometry(5, 50, 50),
+//   new Three.ShaderMaterial({
+//   vertexShader: glowVertexShader,
+//   fragmentShader: glowFragmentShader,
+//   blending: Three.AdditiveBlending,
+//   side: Three.BackSide
+// }))
+
+// atmosphere.scale.set(1.2, 1.2, 1.2)
+
+// scene.add(atmosphere)
+
+// const group = new Three.Group()
+// group.add(sphere)
+// scene.add(group)
+
+// const starGeometry= new Three.BufferGeometry()
+// const startMaterial = new Three.PointsMaterial({
+//   color: 0xffffff
+// })
+
+// const starVertices = []
+// for(let i = 0; i< 10000; i++) {
+//   const x = (Math.random() - 0.5) * 2000 
+//   const y = (Math.random() - 0.5) * 2000 
+//   const z = -Math.random() * 2000
+//   starVertices.push(x, y, z)
+// }
+// starGeometry.setAttribute('position', new Three.Float32BufferAttribute(starVertices, 3))
+
+// const stars = new Three.Points(starGeometry, startMaterial)
+// scene.add(stars)
+
+// camera.position.z = 15
+
+// function createBox({ lat, lng, location, scale }) {
+//   const box = new THREE.Mesh(
+//     new THREE.BoxGeometry(0.2, 0.2, 0.8),
+//     new THREE.MeshBasicMaterial({
+//       color: '#3BF7FF',
+//       opacity: 0.8,
+//       transparent: true
+//     })
+//   )
+
+//   const latitude = (lat / 180) * Math.PI
+//   const longitude = (lng / 180) * Math.PI
+//   const radius = 5
+
+//   const x = radius * Math.cos(latitude) * Math.sin(longitude)
+//   const y = radius * Math.sin(latitude)
+//   const z = radius * Math.cos(latitude) * Math.cos(longitude)
+
+//   box.position.x = x
+//   box.position.y = y
+//   box.position.z = z
+
+//   box.lookAt(0, 0, 0)
+//   box.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 0, -0.4))
+
+//   group.add(box)
+
+//   gsap.to(box.scale, {
+//     z: 1.4,
+//     duration: 2,
+//     yoyo: true,
+//     repeat: -1,
+//     ease: 'linear',
+//     delay: Math.random()
+//   })
+
+//   box.location = location
+//   box.scale = scale
+// }
+
+// function createBoxes(activities) {
+//   activities.forEach((activity) => {
+//     const scale = activity.scale 
+//     const lat = activity.latitude
+//     const lng = activity.longitude
+//     const zScale = 0.8 * scale
+
+//     const box = new THREE.Mesh(
+//       new THREE.BoxGeometry(
+//         Math.max(0.1, 0.2 * scale),
+//         Math.max(0.1, 0.2 * scale),
+//         Math.max(zScale, 0.4 * Math.random())
+//       ),
+//       new THREE.MeshBasicMaterial({
+//         color: '#3BF7FF',
+//         opacity: 0.8,
+//         transparent: true
+//       })
+//     )
+
+//     const latitude = (lat / 180) * Math.PI
+//     const longitude = (lng / 180) * Math.PI
+//     const radius = 5
+
+//     const x = radius * Math.cos(latitude) * Math.sin(longitude)
+//     const y = radius * Math.sin(latitude)
+//     const z = radius * Math.cos(latitude) * Math.cos(longitude)
+
+//     box.position.x = x
+//     box.position.y = y
+//     box.position.z = z
+
+//     box.lookAt(0, 0, 0)
+//     box.geometry.applyMatrix4(
+//       new THREE.Matrix4().makeTranslation(0, 0, -zScale / 2)
+//     )
+
+//     group.add(box)
+
+//     gsap.to(box.scale, {
+//       z: 1.4,
+//       duration: 2,
+//       yoyo: true,
+//       repeat: -1,
+//       ease: 'linear',
+//       delay: Math.random()
+//     })
+
+//     box.location = activity.location
+//     box.scale = new Intl.NumberFormat().format(activity.scale)
+//   })
+// }
+
+// createBoxes(activities)
+
+// const mouse ={
+//   x: undefined,
+//   y: undefined
+// }
+
+// console.log(group.children)
+
+// const raycaster = new THREE.Raycaster()
+// const popUpEl = document.querySelector('#popUpEl')
+// const scaleEl = document.querySelector('#scaleEl')
+// const scaleValueEl = document.querySelector('#scaleValueEl')
+
+// function animate(){
+//   requestAnimationFrame(animate)
+//   renderer.render(scene, camera)
+//   sphere.rotation.y += 0.001
+//   gsap.to(group.rotation, {
+//     x: -mouse.y* 0.3,
+//     y: mouse.x *0.5,
+//     duration: 2
+//   })
+// }
+// animate()
+
+// addEventListener('mousemove', () => {
+//   mouse.x = (event.clientX / innerWidth) * 2 -1 
+//   mouse.y = -(event.clientY / innerHeight) * 2 +1 
+
+//   console.log(mouse)
+// })

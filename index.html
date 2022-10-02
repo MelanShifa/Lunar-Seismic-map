@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="" href="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lunar seismic map</title>
+    <link href="tailwind.css"
+          rel="stylesheet" />
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+      .font-exo{font-family: 'Exo 2', sans-serif;
+}
+    </style>
+  </head>
+  <body>
+    <div id="popUpEl" class="bg-black bg-opacity-75 fixed px-4 py-2 rounded-lg">
+    <h2 class="text-white text-xs">
+      <span id="scaleEl"></span>
+      <span>scale</span>
+    </h2>
+    <p id="scaleValueEl" class="text-white font-bold text-lg">300mil</p>
+  </div>
+    <div class="flex h-screen bg-black">
+      <div class="w-1/4 flex flex-col justify-center px-8">
+        <div style="max-width:500px;" class="mx-auto">
+        <h1 class="text-white text-4xl mb-8 font-exo leading-none">Lunar Seismic Map</h1>
+        <p class="text-gray-400 mb-8"> Hover over the different dots to see the actual Lunar Seismic data visualization. The bars embedding from different areas represent Seismic intensity across the lunar surface.  </p>
+      <div>
+        <a href="" class="text-white text-xl bg-blue-400 px-8 py-4 rounded-full"> Codebase for project</a>
+      </div>
+      </div>
+    </div>
+      <div class="w-3/4" id="canvasContainer">
+      <canvas></canvas> 
+    </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

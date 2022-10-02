@@ -1,0 +1,28 @@
+[
+{
+"location": "SHZ",
+"latitude": 23.473146,
+"longitude": -19.0,
+"sensorDescription":"Apollo PSE Alsep Seismometer",
+"scale":"1.00881E10"
+},
+{
+    "location": "MH1",
+    "latitude": -23.42,
+    "longitude": 0.0,
+    "sensorDescription":"Apollo PSE Alsep Seismometer",
+    "scale":"3.57916E9"
+},
+{ "location": "SHZ",
+"latitude": -23.42456,
+"longitude": 14.0,
+"sensorDescription":"Apollo PSE Alsep Seismometer",
+"scale":"1.00881E10"},
+{
+    "location": "MHE",
+    "latitude": -17.48,
+    "longitude": 0.0,
+    "sensorDescription":"Apollo PSE Alsep Seismometer",
+    "scale":"3.57916E9"
+}
+]
